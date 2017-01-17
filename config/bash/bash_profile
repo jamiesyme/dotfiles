@@ -1,0 +1,9 @@
+#! /bin/bash
+
+
+# Edit .bashrc instead of this file
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+
+# Start X automatically
+[[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]] && exec startx $XDG_CONFIG_HOME/X11/xinitrc

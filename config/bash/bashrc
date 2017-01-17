@@ -1,0 +1,43 @@
+#! /bin/bash
+
+
+# If not running interactively, don't do anything
+# TODO: Why did I add this?
+[[ $- != *i* ]] && return
+
+
+# Add color to ls
+alias ls='ls --color=auto'
+
+
+# Follow XDG standards
+export XDG_DATA_HOME=~/.local/share
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+
+export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/nv
+export CUDA_CACHE_PATH=$XDG_CACHE_HOME/nv
+export GNUPGHOME=$XDG_CONFIG_HOME/gnupg
+export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
+export LESSHISTFILE=$XDG_CACHE_HOME/less/history
+export MPLAYER_HOME=$XDG_CONFIG_HOME/mplayer
+export SPACEMACSDIR=$XDG_CONFIG_HOME/spacemacs
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
+
+
+# Set prompt
+PS1='[\u@\h \W]\$ '
+
+
+# Set default editor to vim
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+
+# Append our scripts to the path
+export PATH=$PATH:~/bin
+
+
+# Make qt apps try and use gtk
+export QT_STYLE_OVERRIDE=gtk
