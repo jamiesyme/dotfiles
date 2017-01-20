@@ -10,6 +10,11 @@
 alias ls='ls --color=auto'
 
 
+# Allow my user to use mount
+alias my-mount='sudo mount -o uid=$UID'
+alias my-umount='sudo umount'
+
+
 # Follow XDG standards
 export XDG_DATA_HOME=~/.local/share
 export XDG_CONFIG_HOME=~/.config
