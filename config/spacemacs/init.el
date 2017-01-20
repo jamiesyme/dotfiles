@@ -35,6 +35,7 @@ values."
      html
      react
      nim
+     python
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -312,6 +313,10 @@ you should place your code here."
                 (setq web-mode-css-indent-offset n)
                 (setq web-mode-code-indent-offset n)
                 (setq web-mode-indent-style n))))
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil)     ;; Use spaces over tabs
+              (setq python-indent-offset 4))) ;; Use 4 spaces
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
