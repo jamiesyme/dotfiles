@@ -3,6 +3,7 @@
 #include <X11/Xutil.h>
 #include <cairo/cairo.h>
 #include <cairo/cairo-xlib.h>
+#include <pango/pangocairo.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -107,6 +108,16 @@ int main()
   // Create cairo context
   cairo_t* cr = cairo_create(cs);
 
+  // Load font
+  PangoFontDescription* fontInfo = pango_font_description_new();
+  pango_font_description_set_family(fontInfo, "serif");
+  pango_font_description_set_weight(fontInfo, PANGO_WEIGHT_NORMAL);
+  pango_font_description_set_absolute_size(fontInfo, 32 * PANGO_SCALE);
+
+  PangoLayout* fontLayout = pango_cairo_create_layout(cr);
+  pango_layout_set_font_description(fontLayout, fontInfo);
+  pango_layout_set_text(fontLayout, "Good", -1);
+
   while (1) {
     XEvent e;
     XNextEvent(xDisplay, &e);
@@ -122,12 +133,18 @@ int main()
       cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
       cairo_paint(cr);
       cairo_restore(cr);
+
+      cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
+      cairo_move_to(cr, 10, 10);
+      pango_cairo_show_layout(cr, fontLayout);
     }
     if (e.type == KeyPress) {
       break;
     }
   }
 
+  g_object_unref(fontLayout);
+  pango_font_description_free(fontInfo);
   cairo_destroy(cr);
   cairo_surface_destroy(cs);
   XUnmapWindow(xDisplay, xWindow);
