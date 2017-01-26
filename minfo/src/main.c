@@ -1,6 +1,8 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xutil.h>
+#include <cairo/cairo.h>
+#include <cairo/cairo-xlib.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -33,6 +35,8 @@ int main()
   }
   int xScreen = DefaultScreen(xDisplay);
   Window xRoot = RootWindow(xDisplay, xScreen);
+  int width = 100;
+  int height = 100;
   XVisualInfo xVisualInfo;
   status = XMatchVisualInfo(xDisplay,
                             xScreen,
@@ -55,7 +59,7 @@ int main()
   Window xWindow = XCreateWindow(xDisplay,
                                  xRoot,
                                  0, 0,
-                                 100, 100,
+                                 width, height,
                                  0,
                                  xVisualInfo.depth,
                                  InputOutput,
@@ -77,12 +81,6 @@ int main()
                   1);
 
   // Remove the window decorations
-  //Atom mwmHintsProperty = XInternAtom(display, "_MOTIF_WM_HINTS", 0);
-  //struct MwmHints hints;
-  //hints.flags = MWM_HINTS_DECORATIONS;
-  //hints.decorations = 0;
-  //XChangeProperty(display, window, mwmHintsProperty, mwmHintsProperty, 32,
-  //PropModeReplace, (unsigned char *)&hints, 5);Atom windowType = XInternAtom(xDisplay, "_NET_WM_WINDOW_TYPE", 0);
   Atom motifHintsType = XInternAtom(xDisplay, "_MOTIF_WM_HINTS", 0);
   struct MwmHints motifHints;
   motifHints.flags = MWM_HINTS_DECORATIONS;
@@ -99,27 +97,39 @@ int main()
   XMapWindow(xDisplay, xWindow);
   XSelectInput(xDisplay, xWindow, ExposureMask | KeyPressMask);
 
-  GC xGc = XCreateGC(xDisplay, xWindow, 0, 0);
+  // Create cairo surface
+  cairo_surface_t* cs = cairo_xlib_surface_create(xDisplay,
+                                                  xWindow,
+                                                  xVisualInfo.visual,
+                                                  width, height);
+  cairo_xlib_surface_set_size(cs, width, height); // Is this really needed?
 
+  // Create cairo context
+  cairo_t* cr = cairo_create(cs);
 
   while (1) {
     XEvent e;
     XNextEvent(xDisplay, &e);
     if (e.type == Expose) {
-      XWindowAttributes xWinAttr;
-      int width, height;
-      XGetWindowAttributes(xDisplay, xWindow, &xWinAttr);
-      width = xWinAttr.width;
-      height = xWinAttr.height;
+      //XWindowAttributes xWinAttr;
+      //int width, height;
+      //XGetWindowAttributes(xDisplay, xWindow, &xWinAttr);
+      //width = xWinAttr.width;
+      //height = xWinAttr.height;
 
-      XSetForeground(xDisplay, xGc, 0x66FF0000);
-      XFillRectangle(xDisplay, xWindow, xGc, 0, 0, width, height);
+      cairo_save(cr);
+      cairo_set_source_rgba(cr, 1.0, 0.0, 0.0, 0.5);
+      cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+      cairo_paint(cr);
+      cairo_restore(cr);
     }
     if (e.type == KeyPress) {
       break;
     }
   }
 
+  cairo_destroy(cr);
+  cairo_surface_destroy(cs);
   XUnmapWindow(xDisplay, xWindow);
   XDestroyWindow(xDisplay, xWindow);
   XCloseDisplay(xDisplay);
