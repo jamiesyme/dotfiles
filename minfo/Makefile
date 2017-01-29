@@ -6,7 +6,7 @@ MINFO_SOURCES=src/main.c src/hub.c src/radio.c
 
 MINFO_MSG_CFLAGS=-Wall
 MINFO_MSG_LDFLAGS=
-MINFO_MSG_SOURCES=src/minfo-msg.c
+MINFO_MSG_SOURCES=src/minfo-msg.c src/radio-transmitter.c
 
 all: minfo minfo_msg
 

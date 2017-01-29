@@ -11,6 +11,8 @@ int runHub(Hub* hub);
 
 
 // Functions below are thread-safe
-void showModules(Hub* hub);
+void stopHub(Hub* hub);
 
-void hideModules(Hub* hub);
+void showHubModules(Hub* hub);
+
+void hideHubModules(Hub* hub);
