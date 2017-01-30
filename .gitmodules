@@ -1,0 +1,3 @@
+[submodule "minfo"]
+	path = minfo
+	url = https://github.com/jamiesyme/minfo.git
