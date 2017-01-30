@@ -1,5 +1,5 @@
 #include "hub.h"
-#include "radio.h"
+#include "radio-receiver.h"
 
 int main()
 {

@@ -7,8 +7,8 @@
 #include <unistd.h>
 
 #include "hub.h"
-#include "radio.h"
 #include "radio-msg.h"
+#include "radio-receiver.h"
 
 int readBytes(int sockFd, unsigned int min, void* buffer);
 
