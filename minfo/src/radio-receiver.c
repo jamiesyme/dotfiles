@@ -38,7 +38,7 @@ void runRadio(Hub* hub)
     clientSocket = accept(serverSocket,
                           (struct sockaddr*)&clientAddr,
                           &clientAddrSize);
-    if (readBytes(clientSocket, sizeof msg.type, (void*)msg.type) != 0) {
+    if (readBytes(clientSocket, sizeof msg.type, (void*)&msg.type) != 0) {
       close(clientSocket);
       continue;
     }
