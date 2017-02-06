@@ -91,6 +91,23 @@ proc main() =
       raiseAssert("invalid volume modifier: " & args[1])
     sink.save()
     sink.apply()
+  of "show":
+    doAssert(args.len >= 2, "no show modifier specified")
+    var
+      settings: MaudioSettings
+      sink: Sink
+    settings.load()
+    sink.sinkType = settings.currentSink
+    sink.load()
+    case args[1]
+    of "sink":
+      echo $sink.sinkType
+    of "volume":
+      echo $sink.settings.volume
+    of "mute":
+      echo if sink.settings.muted: "1" else: "0"
+    else:
+      raiseAssert("invalid show modifier: " & args[1])
   else:
     raiseAssert("invalid command: " & args[0])
 
