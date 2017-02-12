@@ -13,3 +13,5 @@ ln -sf $(realpath scripts/init-feh.sh) ~/bin/init-feh
 ln -sf $(realpath scripts/init-xrandr.sh) ~/bin/init-xrandr
 ln -sf $(realpath maudio/maudio) ~/bin/maudio
 ln -sf $(realpath maudio/maudio_i3block) ~/bin/maudio_i3block
+ln -sf $(realpath minfo/minfo) ~/bin/minfo
+ln -sf $(realpath minfo/minfo-msg) ~/bin/minfo-msg
