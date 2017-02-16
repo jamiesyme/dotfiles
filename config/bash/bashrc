@@ -42,7 +42,10 @@ export EDITOR="$VISUAL"
 
 
 # Append our scripts to the path
-export PATH=$PATH:~/bin
+PATH="$HOME/bin:$PATH"
+
+# Add yarn to path
+PATH="$HOME/.yarn/bin:$PATH"
 
 
 # Make qt apps try and use gtk
