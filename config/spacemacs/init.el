@@ -305,19 +305,29 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (setq indent-tabs-mode t)
-              (let ((n 4))
-                (setq tab-width n)
-                (setq web-mode-markup-indent-offset n)
-                (setq web-mode-css-indent-offset n)
-                (setq web-mode-code-indent-offset n)
-                (setq web-mode-indent-style n))))
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (setq indent-tabs-mode nil)     ;; Use spaces over tabs
-              (setq python-indent-offset 4))) ;; Use 4 spaces
+  (defun my-indents (n i)
+    (setq indent-tabs-mode i
+          standard-indent n
+          c-basic-offset n
+          javascript-indent-level n
+          js-indent-level n
+          react-indent-level n
+          js2-basic-offset n
+          web-mode-attr-indent-offset n
+          web-mode-code-indent-offset n
+          web-mode-css-indent-offset n
+          web-mode-markup-indent-offset n
+          web-mode-sql-indent-offset n
+          web-mode-attr-value-indent-offset n
+          css-indent-offset n
+          python-indent-offset n))
+  (add-hook 'c-mode-hook       (lambda () (my-indents 2 nil)))
+  (add-hook 'css-mode-hook     (lambda () (my-indents 2 t)))
+  (add-hook 'js2-mode-hook     (lambda () (my-indents 2 t)))
+  (add-hook 'js2-jsx-mode-hook (lambda () (my-indents 2 t)))
+  (add-hook 'react-mode-hook   (lambda () (my-indents 2 t)))
+  (add-hook 'web-mode-hook     (lambda () (my-indents 2 t)))
+  (add-hook 'python-mode-hook  (lambda () (my-indents 4 nil)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
