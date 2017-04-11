@@ -145,4 +145,4 @@ exec --no-startup-id compton -b
 exec --no-startup-id init-audio
 
 # MInfo
-exec --no-startup-id minfo &
+exec --no-startup-id minfo >> ~/minfo-log.txt &
