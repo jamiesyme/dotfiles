@@ -1,0 +1,6 @@
+[Unit]
+Description=Virtual Machine for: %i
+
+[Service]
+ExecStart=/usr/bin/VBoxHeadless -s %i
+ExecStop=/usr/bin/VBoxManage controlvm %i savestate
