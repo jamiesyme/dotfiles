@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Set the default output port to the rear jack
 pacmd set-sink-port alsa_output.pci-0000_00_14.2.analog-stereo analog-output-lineout

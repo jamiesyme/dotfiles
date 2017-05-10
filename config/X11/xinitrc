@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 xrdb $XDG_CONFIG_HOME/X11/xresources
 numlockx &

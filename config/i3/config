@@ -120,11 +120,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Status bar
-#bar {
-#     status_command i3blocks
-#}
-
 # Xrandr
 exec --no-startup-id init-xrandr
 
