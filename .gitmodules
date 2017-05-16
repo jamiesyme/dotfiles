@@ -1,3 +1,3 @@
 [submodule "minfo"]
-	path = minfo
+	path = lattice
 	url = https://github.com/jamiesyme/minfo.git

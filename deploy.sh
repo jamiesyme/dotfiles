@@ -13,5 +13,5 @@ ln -sf $(realpath ~/.config/bash/bash_profile) ~/.bash_profile
 
 # Copy bins and scripts
 cp maudio/maudio ~/bin/
-cp minfo/minfo* ~/bin/
+cp lattice/lattice* ~/bin/
 cp scripts/* ~/bin/
