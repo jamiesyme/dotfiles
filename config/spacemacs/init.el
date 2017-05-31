@@ -60,7 +60,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(go-mode)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -307,6 +307,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (defun my-indents (n i)
     (setq indent-tabs-mode i
+          tab-width n
           standard-indent n
           c-basic-offset n
           javascript-indent-level n
@@ -328,6 +329,7 @@ you should place your code here."
   (add-hook 'react-mode-hook   (lambda () (my-indents 2 t)))
   (add-hook 'web-mode-hook     (lambda () (my-indents 2 t)))
   (add-hook 'python-mode-hook  (lambda () (my-indents 4 nil)))
+  (add-hook 'go-mode-hook      (lambda () (my-indents 4 t)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
