@@ -7,6 +7,20 @@
 
 
 ;;
+;; Configure backup files
+;;
+(setq backup-directory-alist `(("." . (getenv "EMACS_BACKUP_DIR"))))
+(let ((week (* 60 60 24 7))
+      (current (float-time (current-time))))
+  (dolist (file (directory-files (getenv "EMACS_BACKUP_DIR") t))
+    (when (and (backup-file-name-p file)
+	       (> (- current (float-time (fifth (file-attributes file))))
+		  week))
+      (message "Deleting old backup file: %s" file)
+      (delete-file file))))
+
+
+;;
 ;; Disable the GUI bars
 ;;
 (menu-bar-mode -1)
@@ -39,7 +53,11 @@
 ;;
 ;; Packages
 ;;
-(setq evil-want-C-u-scroll t) ; Needed before require for correct C-u behaviour
+
+;; These variables need to be set before evil is required
+(setq evil-want-C-u-scroll t) ; Corrects C-u scrolling
+(setq evil-want-C-i-jump nil) ; Corrects TAB to handle indentation
+
 (use-package evil-leader
   :config
   (global-evil-leader-mode)
@@ -86,6 +104,23 @@
   (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
   (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-enter)
   (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter))
+
+(use-package smart-tabs-mode
+  :init
+  (smart-tabs-insinuate 'c 'c++))
+
+
+;;
+;; Indentation
+;;
+(defun init-indent (width tabs-flag)
+  (setq indent-tabs-mode tabs-flag)
+  (setq c-basic-offset width
+  		tab-width width)
+  (c-set-style "linux"))
+
+(add-hook 'c-mode-hook   (lambda () (init-indent 4 t)))
+(add-hook 'c++-mode-hook (lambda () (init-indent 4 t)))
 
 
 ;;
