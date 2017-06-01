@@ -1,18 +1,25 @@
 #!/bin/bash
 
-# Create directory structure
-mkdir -p ~/.cache \
-         ~/.config \
-         ~/.local/share \
-         ~/bin
+# Define locations
+BIN_HOME="$HOME/.local/bin"
+XDG_CACHE_HOME="$HOME/.cache"
+XDG_CONFIG_HOME="$HOME/.config"
+XDG_DATA_HOME="$HOME/.local/share"
+
+# Create directories
+mkdir -p \
+      "$BIN_HOME" \
+      "$XDG_CACHE_HOME" \
+      "$XDG_CONFIG_HOME" \
+      "$XDG_DATA_HOME"
 
 # Copy config
-cp -R config/* ~/.config/
-ln -sf $(realpath ~/.config/bash/bashrc) ~/.bashrc
-ln -sf $(realpath ~/.config/bash/bash_profile) ~/.bash_profile
-ln -sf $(realpath ~/.config/emacs.d) ~/.emacs.d
+cp -R config/* "$XDG_CONFIG_HOME"
+ln -sf "$XDG_CONFIG_HOME/bash/bashrc" "$HOME/.bashrc"
+ln -sf "$XDG_CONFIG_HOME/bash/bash_profile" "$HOME/.bash_profile"
+ln -sf "$XDG_CONFIG_HOME/emacs.d" "$HOME/.emacs.d"
 
 # Copy bins and scripts
-cp maudio/maudio ~/bin/
-cp lattice/lattice* ~/bin/
-cp scripts/* ~/bin/
+cp lattice/lattice* $BIN_HOME
+cp maudio/maudio $BIN_HOME
+cp scripts/* $BIN_HOME
