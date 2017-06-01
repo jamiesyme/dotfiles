@@ -121,10 +121,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Xrandr
-exec --no-startup-id init-xrandr
+exec --no-startup-id init-xrandr.sh
 
 # Feh
-exec --no-startup-id init-feh
+exec --no-startup-id init-feh.sh
 
 # i3 gaps
 for_window [class="^.*"] border pixel 1
@@ -137,7 +137,7 @@ smart_borders on
 exec --no-startup-id compton -b
 
 # Audio init
-exec --no-startup-id init-audio
+exec --no-startup-id init-audio.sh
 
 # MInfo
 exec --no-startup-id minfo >> ~/minfo-log.txt &
