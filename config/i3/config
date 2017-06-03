@@ -1,26 +1,31 @@
 
-set $mod Mod4
-
+# Font
 #font pango:System San Francisco Display 13
 font xft: Monaco 12
 
-# Move window with mouse
-floating_modifier $mod
+# i3 gaps
+for_window [class="^.*"] border pixel 1
+gaps inner 10
+gaps outer 0
+smart_gaps on
+smart_borders on
 
-# Terminal
+
+
+############################################################
+# Bindings
+############################################################
+
+set $mod Mod4
+
+# Custom apps
 bindsym $mod+Return exec i3-sensible-terminal
-
-# Emacs
-bindsym $mod+e exec emacsclient -c
+bindsym $mod+e      exec emacsclient -c
+bindsym $mod+d      exec rofi -show run
+bindsym $mod+space  exec lattice-msg toggle-all
 
 # Kill window
 bindsym $mod+Shift+q kill
-
-# Rofi
-bindsym $mod+d exec rofi -show run
-
-# MInfo
-bindsym $mod+space exec minfo-msg toggle
 
 # Change focus
 bindsym $mod+h focus left
@@ -65,16 +70,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Workspaces
-bindsym $mod+1 exec i3-msg workspace 1  && minfo-msg show-update workspace
-bindsym $mod+2 exec i3-msg workspace 2  && minfo-msg show-update workspace
-bindsym $mod+3 exec i3-msg workspace 3  && minfo-msg show-update workspace
-bindsym $mod+4 exec i3-msg workspace 4  && minfo-msg show-update workspace
-bindsym $mod+5 exec i3-msg workspace 5  && minfo-msg show-update workspace
-bindsym $mod+6 exec i3-msg workspace 6  && minfo-msg show-update workspace
-bindsym $mod+7 exec i3-msg workspace 7  && minfo-msg show-update workspace
-bindsym $mod+8 exec i3-msg workspace 8  && minfo-msg show-update workspace
-bindsym $mod+9 exec i3-msg workspace 9  && minfo-msg show-update workspace
-bindsym $mod+0 exec i3-msg workspace 10 && minfo-msg show-update workspace
+bindsym $mod+1 exec i3-msg workspace 1  && lattice-msg alert workspace
+bindsym $mod+2 exec i3-msg workspace 2  && lattice-msg alert workspace
+bindsym $mod+3 exec i3-msg workspace 3  && lattice-msg alert workspace
+bindsym $mod+4 exec i3-msg workspace 4  && lattice-msg alert workspace
+bindsym $mod+5 exec i3-msg workspace 5  && lattice-msg alert workspace
+bindsym $mod+6 exec i3-msg workspace 6  && lattice-msg alert workspace
+bindsym $mod+7 exec i3-msg workspace 7  && lattice-msg alert workspace
+bindsym $mod+8 exec i3-msg workspace 8  && lattice-msg alert workspace
+bindsym $mod+9 exec i3-msg workspace 9  && lattice-msg alert workspace
+bindsym $mod+0 exec i3-msg workspace 10 && lattice-msg alert workspace
 
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -88,11 +93,10 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Audio controls
-#set $MAUDIO_BLOCK_UPDATE pkill --signal RTMIN+10 i3blocks
-bindsym Mod1+Ctrl+Shift+Left  exec maudio volume down   && minfo-msg show-update audio
-bindsym Mod1+Ctrl+Shift+Right exec maudio volume up     && minfo-msg show-update audio
-bindsym Mod1+Ctrl+Shift+Down  exec maudio volume toggle && minfo-msg show-update audio
-bindsym Mod1+Ctrl+Shift+p     exec maudio sink toggle   && minfo-msg show-update audio
+bindsym Mod1+Ctrl+Shift+Left  exec maudio volume down   && lattice-msg alert audio
+bindsym Mod1+Ctrl+Shift+Right exec maudio volume up     && lattice-msg alert audio
+bindsym Mod1+Ctrl+Shift+Down  exec maudio volume toggle && lattice-msg alert audio
+bindsym Mod1+Ctrl+Shift+p     exec maudio sink toggle   && lattice-msg alert audio
 bindsym Mod1+Ctrl+Left        exec playerctl previous
 bindsym Mod1+Ctrl+Right       exec playerctl next
 bindsym Mod1+Ctrl+Down        exec playerctl play-pause
@@ -120,24 +124,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Xrandr
+# Move window with mouse
+floating_modifier $mod
+
+
+
+############################################################
+# Startup apps
+############################################################
+
 exec --no-startup-id init-xrandr.sh
-
-# Feh
-exec --no-startup-id init-feh.sh
-
-# i3 gaps
-for_window [class="^.*"] border pixel 1
-gaps inner 10
-gaps outer 0
-smart_gaps on
-smart_borders on
-
-# Compton
-exec --no-startup-id compton -b
-
-# Audio init
 exec --no-startup-id init-audio.sh
-
-# MInfo
-exec --no-startup-id minfo >> ~/minfo-log.txt &
+exec --no-startup-id init-feh.sh
+exec --no-startup-id compton -b
+exec --no-startup-id lattice &
