@@ -3,10 +3,11 @@ Description=Emacs: the extensible, self-documenting text editor
 
 [Service]
 Type=forking
+ExecStartPre=/bin/mkdir -p /home/jamie/.local/share/emacs/backup
 ExecStart=/usr/bin/emacs --daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
 Restart=always
-Environment=SPACEMACSDIR=/home/jamie/.config/spacemacs
+Environment=EMACS_BACKUP_DIR=/home/jamie/.local/share/emacs/backup
 
 [Install]
 WantedBy=default.target
