@@ -2,4 +2,5 @@
 
 xrdb $XDG_CONFIG_HOME/X11/xresources
 numlockx &
+init-dirs.sh
 exec i3
