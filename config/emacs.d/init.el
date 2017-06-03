@@ -9,23 +9,26 @@
 ;;
 ;; Configure backup files
 ;;
-(setq backup-directory-alist `(("." . (getenv "EMACS_BACKUP_DIR"))))
-(let ((week (* 60 60 24 7))
+(let ((backup-dir (getenv "EMACS_BACKUP_DIR"))
+	  (week (* 60 60 24 7))
       (current (float-time (current-time))))
-  (dolist (file (directory-files (getenv "EMACS_BACKUP_DIR") t))
-    (when (and (backup-file-name-p file)
-	       (> (- current (float-time (fifth (file-attributes file))))
-		  week))
-      (message "Deleting old backup file: %s" file)
-      (delete-file file))))
+  (setq backup-directory-alist `(("." . ,backup-dir))))
+  ;;(dolist (file (directory-files backup-dir t))
+  ;;  (when (and (backup-file-name-p file)
+  ;;         (> (- current (float-time (fifth (file-attributes file))))
+  ;;  	  week))
+  ;;    (message "Deleting old backup file: %s" file)
+  ;;   (delete-file file))))
 
 
 ;;
-;; Disable the GUI bars
+;; Configure GUI
 ;;
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
+(global-linum-mode)
+(column-number-mode)
 
 
 ;;
@@ -114,10 +117,10 @@
 ;; Indentation
 ;;
 (defun init-indent (width tabs-flag)
+  (c-set-style "linux")
   (setq indent-tabs-mode tabs-flag)
   (setq c-basic-offset width
-  		tab-width width)
-  (c-set-style "linux"))
+        tab-width width))
 
 (add-hook 'c-mode-hook   (lambda () (init-indent 4 t)))
 (add-hook 'c++-mode-hook (lambda () (init-indent 4 t)))
@@ -136,3 +139,13 @@
   :defer t
   :init
   (load-theme 'monokai t))
+
+
+;;
+;; Misc
+;;
+(add-hook 'c-mode-common-hook
+	  (lambda()
+	    (evil-leader/set-key "o" 'ff-find-other-file)))
+
+(evil-leader/set-key "bd" 'kill-this-buffer)
