@@ -1,3 +1,1 @@
-function my-umount
-	sudo umount
-end
+alias my-umount="sudo umount"

@@ -1,3 +1,1 @@
-function my-mount
-	sudo mount -o uid=$UID
-end
+alias my-mount="sudo mount -o uid=(id -u)"
