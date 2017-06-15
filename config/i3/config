@@ -5,7 +5,7 @@ font xft: Monaco 12
 
 # i3 gaps
 for_window [class="^.*"] border pixel 1
-gaps inner 10
+gaps inner 8
 gaps outer 0
 smart_gaps on
 smart_borders on
@@ -46,6 +46,7 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+c move position center
 
 # Move workspace
 bindsym $mod+Shift+comma move workspace to output left
@@ -56,15 +57,12 @@ bindsym $mod+g split h
 bindsym $mod+v split v
 
 # Fullscreen
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space fullscreen toggle
 
 # Layout
 bindsym $mod+t layout tabbed
 bindsym $mod+s layout toggle split
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
-#bindsym $mod+e layout toggle split
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+f floating toggle
 #bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 #bindsym $mod+d focus child
@@ -102,7 +100,7 @@ bindsym Mod1+Ctrl+Right       exec playerctl next
 bindsym Mod1+Ctrl+Down        exec playerctl play-pause
 
 # i3 controls
-bindsym $mod+Shift+c reload
+#bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -117,6 +115,14 @@ mode "resize" {
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym 1 resize set 426 240
+        bindsym 2 resize set 640 360
+        bindsym 3 resize set 854 480
+        bindsym 4 resize set 1280 720
+        bindsym 5 resize set 1920 1080
+        #bindsym 6 resize set 2560 1440
+        #bindsym 7 resize set 3840 2160
 
         bindsym Return mode "default"
         bindsym Escape mode "default"

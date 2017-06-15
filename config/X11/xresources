@@ -40,7 +40,7 @@ Xft.rgba: rgb
 *color7: #6C7A80
 *color15: #C5C8C6
 
-URxvt.internalBorder: 0
+URxvt.internalBorder: 4
 URxvt.externalBorder: 0
 
 URxvt.scrollBar: false
