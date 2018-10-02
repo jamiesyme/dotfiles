@@ -65,6 +65,10 @@
 	auto-package-update-interval 4)
   (auto-package-update-maybe))
 
+(use-package xclip
+  :config
+  (xclip-mode 1))
+
 ;; These variables need to be set before evil is required
 (setq evil-want-C-u-scroll t) ; Corrects C-u scrolling
 (setq evil-want-C-i-jump nil) ; Corrects TAB to handle indentation
@@ -122,6 +126,10 @@
   :init
   (smart-tabs-insinuate 'c 'c++))
 
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 (use-package go-mode)
 
 (use-package web-mode
@@ -129,11 +137,11 @@
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.gotmpl\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode)))
-  ;(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode)))
+  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode)))
 
-(use-package vue-html-mode)
-(use-package vue-mode)
+;(use-package vue-html-mode)
+;(use-package vue-mode)
 
 (use-package yaml-mode
   :config
@@ -151,7 +159,11 @@
 	tab-width width
 	web-mode-markup-indent-offset width
 	web-mode-css-indent-offset width
-	web-mode-code-indent-offset width))
+	web-mode-code-indent-offset width
+	web-mode-script-padding width
+	web-mode-style-padding width
+	web-mode-block-padding width)
+  (editorconfig-apply))
 
 (add-hook 'c-mode-hook (lambda ()
 			 (c-set-style "linux")
@@ -166,8 +178,8 @@
 (add-hook 'js-mode-hook (lambda ()
 			  (init-indent 4 t)))
 (add-hook 'web-mode-hook (lambda ()
-			   (init-indent 4 t)
-			   (web-mode-use-tabs)))
+			   (init-indent 4 t)))
+			   ;(web-mode-use-tabs)))
 
 
 ;;
